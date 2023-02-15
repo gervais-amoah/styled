@@ -11,10 +11,19 @@ import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 import { GET_PRODUCT_QUERY } from 'lib/query';
 import { useRouter } from 'next/router';
 import { useStateContext } from 'lib/context';
+// import { UserContext, TypeContext } from "./Home";
+import { ShopContext } from 'lib/context';
+import { useContext, memo } from 'react';
 
-export default function ProductDetails() {
-  const { qty, increaseQty, decreaseQty, onAdd } = useStateContext();
-  console.log(qty);
+let count = 0;
+
+const ProductDetails = memo(() => {
+  const { setShowCart, qty, increaseQty, decreaseQty, onAdd } =
+    useContext(ShopContext);
+
+  // const { qty, increaseQty, decreaseQty } = useStateContext();
+  // console.log(qty);
+  console.log('function called', count++);
 
   // Get product slug
   const router = useRouter();
@@ -30,7 +39,7 @@ export default function ProductDetails() {
   if (error) return <p>Oh no... {error.message}</p>;
 
   //Extract Data
-  const { title, description, image } = data.products.data[0].attributes;
+  const { title, description, image, price } = data.products.data[0].attributes;
 
   return (
     <DetailsStyle>
@@ -53,12 +62,15 @@ export default function ProductDetails() {
         <Buy
           onClick={() => {
             onAdd(data.products.data[0].attributes, qty);
+            setShowCart(true);
             // notify();
           }}
         >
-          Add To Cart
+          Add To Cart - ${price * qty}
         </Buy>
       </ProductInfo>
     </DetailsStyle>
   );
-}
+});
+
+export default ProductDetails;

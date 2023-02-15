@@ -10,7 +10,7 @@ export const DetailsStyle = styled.div`
 export const ProductImage = styled.div`
   padding: 3rem 2rem;
   border: 5px solid var(--primary);
-  width: 40%;
+  width: 35%;
   img {
     width: 100%;
   }
