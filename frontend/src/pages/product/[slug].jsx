@@ -10,6 +10,7 @@ import {
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 import { GET_PRODUCT_QUERY } from 'lib/query';
 import { useRouter } from 'next/router';
+import { CURRENCY } from 'lib/query';
 // import { useStateContext } from 'lib/context';
 // import { UserContext, TypeContext } from "./Home";
 import { ShopContext } from 'lib/context';
@@ -66,7 +67,7 @@ const ProductDetails = memo(() => {
             // notify();
           }}
         >
-          Add To Cart - ${price * qty}
+          Add To Cart - {price * qty} {CURRENCY}
         </Buy>
       </ProductInfo>
     </DetailsStyle>

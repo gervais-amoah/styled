@@ -42,3 +42,5 @@ query getProducts($slug:String!){
     }
   }
 }`;
+
+export const CURRENCY = 'FCFA';

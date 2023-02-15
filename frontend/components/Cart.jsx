@@ -12,6 +12,8 @@ import {
 import { Quantity } from '@/styles/ProductDetails';
 import { FaShoppingCart } from 'react-icons/fa';
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
+import getStripe from 'lib/getStripe';
+import { CURRENCY } from 'lib/query';
 
 // Animation Variants
 const cardAnimate = {
@@ -29,6 +31,23 @@ const cardsAnimate = {
 export default function Cart() {
   const { onAdd, onRemove, cartItems, setShowCart, totalPrice } =
     useStateContext();
+
+  // STRIPE PAYMENT
+  const handleCheckout = async () => {
+    const stripe = await getStripe();
+    const response = await fetch('/api/stripe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(cartItems),
+    });
+
+    const data = await response.json();
+    console.log('DATA', data);
+    // IntegrationError: stripe.redirectToCheckout: You must provide one of lineItems, items, or sessionId.
+    await stripe.redirectToCheckout({ sessionId: data.id });
+  };
 
   return (
     <div>
@@ -57,7 +76,6 @@ export default function Cart() {
           <Cards layout variants={cardsAnimate} initial="hidden" animate="show">
             {cartItems.length >= 1 &&
               cartItems.map(item => {
-                console.log(item);
                 return (
                   <Card layout variants={cardAnimate} key={item.slug}>
                     <CardImage>
@@ -65,7 +83,9 @@ export default function Cart() {
                     </CardImage>
                     <CardInfo>
                       <h3>{item.title}</h3>
-                      <h3>${item.price}</h3>
+                      <h3>
+                        {item.price} {CURRENCY}
+                      </h3>
 
                       <Quantity>
                         <span>Quantity</span>
@@ -93,11 +113,13 @@ export default function Cart() {
                 );
               })}
           </Cards>
-          <Checkout layout>
+          <Checkout onClick={handleCheckout} layout>
             {cartItems.length >= 1 && (
               <div>
                 {/* <h3>Subtotal</h3> */}
-                <button>Purchase - ${totalPrice.toFixed(2)}</button>
+                <button>
+                  Purchase - {totalPrice.toFixed(2)} {CURRENCY}
+                </button>
               </div>
             )}
           </Checkout>
@@ -106,8 +128,3 @@ export default function Cart() {
     </div>
   );
 }
-
-/*
-HAAAAA
-
-            */

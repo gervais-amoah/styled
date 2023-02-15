@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ProductStyle, ProductImageStyle } from '@/styles/ProductStyle';
+import { CURRENCY } from 'lib/query';
 
 export default function Product({ data }) {
   const { title, price, description, slug, image } = data;
@@ -19,7 +20,9 @@ export default function Product({ data }) {
         </ProductImageStyle>
 
         <h2>{title}</h2>
-        <h3>$ {price}</h3>
+        <h3>
+          {price} {CURRENCY}
+        </h3>
       </Link>
     </ProductStyle>
   );
