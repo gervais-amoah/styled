@@ -1,30 +1,33 @@
 import Link from 'next/link';
 import { FiShoppingBag } from 'react-icons/fi';
 import { NavStyles, NavItems } from '@/styles/NavStyles';
-// import Cart from "./Cart";
-// import { useStateContext } from "../lib/context";
+import Cart from './Cart';
+import { useStateContext } from 'lib/context';
+
 // const { AnimatePresence, motion } = require("framer-motion");
 // import User from "./User";
 
 export default function Nav() {
-  // const { showCart, setShowCart, totalQuantities } = useStateContext();
+  const { showCart, setShowCart, totalQuantities } = useStateContext();
 
   return (
     <NavStyles>
-      <Link href="/">Styled.</Link>
+      <Link href="/">styled.</Link>
       <NavItems>
         {/* <User /> */}
-        {/* <div onClick={() => setShowCart(true)}> */}
-        <div>
-          {/* {totalQuantities > 0 && (
-            <motion.span animate={{ scale: 1 }} initial={{ scale: 0 }}>
-              {totalQuantities}
-            </motion.span>
-          )} */}
+        <div onClick={() => setShowCart(true)}>
+          {totalQuantities > 0 && (
+            <span>{totalQuantities}</span>
+            // <motion.span animate={{ scale: 1 }} initial={{ scale: 0 }}>
+            //   {totalQuantities}
+            // </motion.span>
+          )}
           <FiShoppingBag />
           <h3>Cart</h3>
         </div>
       </NavItems>
+      {showCart && <Cart />}
+
       {/* <AnimatePresence>{showCart && <Cart />}</AnimatePresence> */}
     </NavStyles>
   );
