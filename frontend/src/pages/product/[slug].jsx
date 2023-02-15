@@ -10,7 +10,7 @@ import {
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 import { GET_PRODUCT_QUERY } from 'lib/query';
 import { useRouter } from 'next/router';
-import { useStateContext } from 'lib/context';
+// import { useStateContext } from 'lib/context';
 // import { UserContext, TypeContext } from "./Home";
 import { ShopContext } from 'lib/context';
 import { useContext, memo } from 'react';
@@ -62,7 +62,7 @@ const ProductDetails = memo(() => {
         <Buy
           onClick={() => {
             onAdd(data.products.data[0].attributes, qty);
-            setShowCart(true);
+            // setShowCart(true);
             // notify();
           }}
         >
