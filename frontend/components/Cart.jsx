@@ -14,6 +14,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 import getStripe from 'lib/getStripe';
 import { CURRENCY } from 'lib/query';
+import { toast } from 'react-hot-toast';
 
 // Animation Variants
 const cardAnimate = {
@@ -34,6 +35,7 @@ export default function Cart() {
 
   // STRIPE PAYMENT
   const handleCheckout = async () => {
+    notify();
     const stripe = await getStripe();
     const response = await fetch('/api/stripe', {
       method: 'POST',
@@ -48,6 +50,13 @@ export default function Cart() {
     // IntegrationError: stripe.redirectToCheckout: You must provide one of lineItems, items, or sessionId.
     await stripe.redirectToCheckout({ sessionId: data.id });
   };
+
+  function notify() {
+    toast.loading('Processing...', {
+      duration: 5000,
+      position: 'bottom-right',
+    });
+  }
 
   return (
     <div>

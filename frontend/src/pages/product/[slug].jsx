@@ -1,5 +1,5 @@
 import { useQuery } from 'urql';
-
+import { toast } from 'react-hot-toast';
 import {
   DetailsStyle,
   ProductImage,
@@ -14,17 +14,21 @@ import { CURRENCY } from 'lib/query';
 // import { useStateContext } from 'lib/context';
 // import { UserContext, TypeContext } from "./Home";
 import { ShopContext } from 'lib/context';
-import { useContext, memo } from 'react';
+import { useContext, memo, useEffect } from 'react';
 
 let count = 0;
 
 const ProductDetails = memo(() => {
-  const { setShowCart, qty, increaseQty, decreaseQty, onAdd } =
+  const { setShowCart, qty, setQty, increaseQty, decreaseQty, onAdd } =
     useContext(ShopContext);
 
   // const { qty, increaseQty, decreaseQty } = useStateContext();
   // console.log(qty);
   console.log('function called', count++);
+
+  useEffect(() => {
+    setQty(1);
+  }, []);
 
   // Get product slug
   const router = useRouter();
@@ -42,10 +46,19 @@ const ProductDetails = memo(() => {
   //Extract Data
   const { title, description, image, price } = data.products.data[0].attributes;
 
+  function notify() {
+    toast.success(`"${title}" added to your cart`, {
+      duration: 2500,
+      position: 'bottom-right',
+    });
+  }
+
   return (
     <DetailsStyle>
       <ProductImage>
-        <img src={image.data.attributes.formats.medium.url} alt={title} />
+        <div>
+          <img src={image.data.attributes.formats.medium.url} alt={title} />
+        </div>
       </ProductImage>
       <ProductInfo>
         <h2>{title}</h2>
@@ -64,7 +77,7 @@ const ProductDetails = memo(() => {
           onClick={() => {
             onAdd(data.products.data[0].attributes, qty);
             // setShowCart(true);
-            // notify();
+            notify();
           }}
         >
           Add To Cart - {price * qty} {CURRENCY}

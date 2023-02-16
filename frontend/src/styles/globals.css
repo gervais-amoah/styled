@@ -111,11 +111,10 @@ a {
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
-    --bg: #f1f1f1;
-    --primary: #2d2d2d;
-    --secondary: #535353;
-
-  }
+  --bg: #f1f1f1;
+  --primary: #2d2d2d;
+  --secondary: #535353;
+}
 
 * {
   box-sizing: border-box;
@@ -131,12 +130,17 @@ body {
   min-height: 100vh;
 }
 
-
 body {
   /* width: 100%;  */
   margin: 0 10%;
   /* padding: 4rem 0; */
   background-color: var(--bg);
+}
+
+@media only screen and (max-width: 500px) {
+  body {
+    margin: 1.5rem;
+  }
 }
 
 h2 {
@@ -146,7 +150,8 @@ h2 {
 
 h3 {
   font-size: 1rem;
-  color: var(--secondary);}
+  color: var(--secondary);
+}
 
 a {
   color: inherit;
@@ -166,3 +171,10 @@ button {
 /* button:hover {
   translate: 0;
 } */
+
+footer {
+  padding: 7rem 0 3rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}

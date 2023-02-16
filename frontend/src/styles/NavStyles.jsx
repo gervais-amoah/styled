@@ -10,6 +10,9 @@ export const NavStyles = styled.nav`
   a {
     font-size: 1.2rem;
   }
+  @media only screen and (max-width: 500px) {
+    min-height: 10vh;
+  }
 `;
 
 export const NavItems = styled.div`

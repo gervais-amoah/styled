@@ -36,7 +36,7 @@ export default function Success({ order }) {
             {Object.entries(order.customer_details.address).map(
               ([key, val]) => (
                 <p key={key}>
-                  {key} : {val}
+                  {key} : {val ?? '-'}
                 </p>
               )
             )}
@@ -54,7 +54,7 @@ export default function Success({ order }) {
         </InfoWrapper>
         <Image
           width={350}
-          style={{ borderRadius: 10 }}
+          style={{ borderRadius: 10, marginTop: 40 }}
           src={nice}
           alt="success"
         />

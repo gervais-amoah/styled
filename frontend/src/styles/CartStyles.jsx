@@ -20,6 +20,18 @@ export const CartStyle = styled(motion.div)`
   padding: 2rem 4rem;
   overflow-y: scroll;
   position: relative;
+
+  /* display: flex; */
+  @media only screen and (max-width: 1024px) {
+    width: 60%;
+  }
+  @media only screen and (max-width: 800px) {
+    width: 80%;
+  }
+  @media only screen and (max-width: 500px) {
+    width: calc(100% - 2rem);
+    padding: 2rem 1rem;
+  }
 `;
 
 export const Card = styled(motion.div)`
@@ -31,17 +43,25 @@ export const Card = styled(motion.div)`
   background: white;
   padding: 1rem;
   margin: 2rem 0rem;
-  img {
-    width: 8rem;
+  height: 10rem;
+  @media only screen and (max-width: 500px) {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
   }
 `;
 
 export const CardImage = styled(motion.div)`
   position: relative;
-  width: 35%;
-  padding-top: 33.33%;
+  width: 30%;
+  padding-top: 21%;
   overflow: hidden;
   border-radius: 0.5rem;
+  @media only screen and (max-width: 500px) {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding-top: 65%;
+  }
   /* border: 2px solid var(--primary); */
 
   img {
@@ -62,6 +82,9 @@ export const CardInfo = styled(motion.div)`
   div {
     display: flex;
     justify-content: space-between;
+  }
+  @media only screen and (max-width: 500px) {
+    width: 100%;
   }
 `;
 
